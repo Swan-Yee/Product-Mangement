@@ -99,7 +99,11 @@
                             </ul>
                         </div>
                         @endauth
-                        <div class="col-10">
+                        <div
+                        @auth
+                            class="col-10"
+                        @endauth
+                            class="col-12">
                             @yield('content')
                         </div>
                 </div>

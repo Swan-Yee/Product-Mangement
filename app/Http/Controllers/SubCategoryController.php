@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SubCategory\SubCategoryEditRequest;
 use App\Http\Requests\SubCategory\SubCategoryRequest;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -119,6 +120,8 @@ class SubCategoryController extends Controller
     {
         $image_arr=explode('/',$subCategory->image);
         Storage::disk('image')->delete($image_arr[1]);
+
+
 
         return redirect()->route('sub-category.index')->with('success','Delete Success!');
     }
