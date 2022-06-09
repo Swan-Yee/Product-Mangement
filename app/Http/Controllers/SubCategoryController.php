@@ -121,8 +121,6 @@ class SubCategoryController extends Controller
         $image_arr=explode('/',$subCategory->image);
         Storage::disk('image')->delete($image_arr[1]);
 
-
-
         return redirect()->route('sub-category.index')->with('success','Delete Success!');
     }
 }

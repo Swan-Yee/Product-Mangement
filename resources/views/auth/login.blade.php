@@ -65,6 +65,11 @@
                             </div>
                         </div>
                     </form>
+                    <hr>
+                        <a class="btn btn-lg btn-social btn-facebook">
+                            <i class="fa-brands fa-facebook-square"></i> Sign in with Facebook
+                        </a>
+                          <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="#"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Signup Using Google</a>
                 </div>
             </div>
         </div>

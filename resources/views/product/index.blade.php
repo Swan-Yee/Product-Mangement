@@ -1,7 +1,13 @@
 @extends('layout.app')
 
 @section('content')
-<div class="d-flex justify-content-end mb-3">
+<div class="d-flex justify-content-between mb-3">
+    <div class="d-inline-block">
+        <form action="#" method="post" class="form-inline">
+            <input class="form-control bg-white" placeholder="Search Product" id="search" type="text">
+            <input type="submit" class="btn btn-sm btn-primary" value="Search">
+        </form>
+    </div>
     <a href="{{route('product.create')}}" class="btn btn-primary">
         Create
     </a>
