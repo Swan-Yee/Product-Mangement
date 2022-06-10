@@ -4,10 +4,16 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    @if (session('error'))
+                        <div class="alert alert-warning" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -66,10 +72,19 @@
                         </div>
                     </form>
                     <hr>
-                        <a class="btn btn-lg btn-social btn-facebook">
-                            <i class="fa-brands fa-facebook-square"></i> Sign in with Facebook
+                    <div class="d-flex justify-content-around">
+                        <a href="{{ route('facebook.login') }}" class="btn btn-lg btn-facebook btn-block text-uppercase btn-outline">
+                            <i class="fa-brands fa-facebook-square"></i>
+                                <span class="d-md-none d-lg-inline">
+                                Sign in with Facebook
+                                </span>
                         </a>
-                          <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="#"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Signup Using Google</a>
+                        <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="{{ route('google.login') }}"><img src="https://img.icons8.com/color/16/000000/google-logo.png">
+                            <span class="d-md-none d-lg-inline">
+                                Signup Using Google
+                           </span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
