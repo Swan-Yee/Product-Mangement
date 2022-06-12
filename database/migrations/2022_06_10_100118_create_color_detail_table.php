@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('color_detail', function (Blueprint $table) {
             $table->foreignId('phone_id')->nullable()->constrained();
             $table->foreignId('color_id')->nullable()->constrained();
-
         });
     }
 

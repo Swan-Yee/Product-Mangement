@@ -84,6 +84,26 @@
                     <div class="col-2">
                             <ul class="list-group">
                             <li class="list-group-item">
+                                <a href="{{route('brand.index')}}">
+                                    Brands
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{route('os.index')}}">
+                                    OS
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{route('processor.index')}}">
+                                    Processor
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{route('color.index')}}">
+                                    Color
+                                </a>
+                            </li>
+                            <li class="list-group-item">
                                 <a href="{{route('product.index')}}">
                                     Product
                                 </a>

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Brand\BrandCreateRequest;
-use App\Http\Requests\Brand\BrandEditRequest;
-use App\Models\Brand;
+use App\Http\Requests\Os\OsCreateRequest;
+use App\Http\Requests\Os\OsEditRequest;
+use App\Models\Operation_System;
 use Illuminate\Http\Request;
 
-class BrandController extends Controller
+class OperationSystemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = brand::all();
-        return view('brand.index',compact('brands'));
+        $oses = Operation_System::all();
+        return view('os.index', compact('oses'));
     }
 
     /**
@@ -27,7 +27,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('brand.create');
+        return view('os.create');
     }
 
     /**
@@ -36,13 +36,13 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BrandCreateRequest $request)
+    public function store(OsCreateRequest $request)
     {
         try{
-            $brand = new brand();
-            $brand = $brand->create($request->all());
-
-            return redirect()->route('brand.index')->with('success','Brand Create Successful');
+            Operation_System::create([
+                'name'=>$request->name
+            ]);
+            return redirect()->route('os.index')->with('success','Os Create Successful');
         }
         catch(\Exception $e){
             return $e->getMessage();
@@ -53,37 +53,41 @@ class BrandController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\brand  $brand
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(brand $brand)
+    public function show($id)
     {
-        return view('brand.show',compact('brand'));
+        $data = Operation_System::find($id);
+        return view('os.show', compact('data'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\brand  $brand
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(brand $brand)
+    public function edit($id)
     {
-        return view('brand.edit',compact('brand'));
+        $data = Operation_System::find($id);
+        return view('os.edit',compact('data'));
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\brand  $brand
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BrandEditRequest $request, brand $brand)
+    public function update(OsEditRequest $request, $id)
     {
         try{
-            $brand->update($request->all());
-            return redirect()->route('brand.index')->with('success','Brand Update Successful');
+            $Os = Operation_System::find($id);
+            $Os->update($request->all());
+            return redirect()->route('os.index')->with('success','OS Update Successful');
         }
         catch(\Exception $e){
             return redirect()->back()->with('error','Something went wrong');
@@ -93,14 +97,15 @@ class BrandController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\brand  $brand
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(brand $brand)
+    public function destroy($id)
     {
         try{
-            $brand->delete();
-            return redirect()->route('brand.index')->with('success','Brand Delete Successful');
+            $OS = Operation_System::find($id);
+            $OS->delete();
+            return redirect()->route('brand.index')->with('success','OS Delete Successful');
         }
         catch(\Exception $e){
             return redirect()->back()->with('error','Something went wrong');

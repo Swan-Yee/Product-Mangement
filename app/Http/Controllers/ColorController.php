@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Color\ColorStoreRequest;
 use App\Models\color;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class ColorController extends Controller
      */
     public function index()
     {
-        //
+        $colors = color::all();
+        return view('color.index',compact('colors'));
     }
 
     /**
@@ -24,7 +26,7 @@ class ColorController extends Controller
      */
     public function create()
     {
-        //
+        return view('color.create');
     }
 
     /**
@@ -33,9 +35,18 @@ class ColorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ColorStoreRequest $request)
     {
-        //
+        try{
+            Color::create([
+                'name'=>$request->name
+            ]);
+            return redirect()->route('color.index')->with('success','Color Create Successful');
+        }
+        catch(\Exception $e){
+            return $e->getMessage();
+            return redirect()->back()->with('error','Something went wrong');
+        }
     }
 
     /**
@@ -46,7 +57,7 @@ class ColorController extends Controller
      */
     public function show(color $color)
     {
-        //
+        return view('color.show',compact('color'));
     }
 
     /**
@@ -57,7 +68,7 @@ class ColorController extends Controller
      */
     public function edit(color $color)
     {
-        //
+        return view('color.edit',compact('color'));
     }
 
     /**
@@ -69,7 +80,13 @@ class ColorController extends Controller
      */
     public function update(Request $request, color $color)
     {
-        //
+        try{
+            $color->update($request->all());
+            return redirect()->route('color.index')->with('success','Color Update Successful');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('error','Something went wrong');
+        }
     }
 
     /**
@@ -80,6 +97,12 @@ class ColorController extends Controller
      */
     public function destroy(color $color)
     {
-        //
+        try{
+            $color->delete();
+            return redirect()->route('color.index')->with('success','Color Delete Successful');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('error','Something went wrong');
+        }
     }
 }

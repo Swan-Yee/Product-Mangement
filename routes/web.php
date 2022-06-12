@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\Auth\FacebookController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ColorController;
+use App\Http\Controllers\OperationSystemController;
+use App\Http\Controllers\ProcessorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +17,10 @@ Route::group(['middleware' => ['auth']],function(){
     Route::resource('/product', ProductController::class);
     Route::resource('/category',CategoryController::class);
     Route::resource('/sub-category',SubCategoryController::class);
+    Route::resource('/brand',BrandController::class);
+    Route::resource('/os',OperationSystemController::class);
+    Route::resource('processor', ProcessorController::class);
+    Route::resource('color', ColorController::class);
 });
 
 Auth::routes();

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\processor;
+use App\Http\Requests\Processor\PorcessorStoreRequest;
+use App\Models\Operation_System;
+use App\Models\Processor;
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Process;
 
 class ProcessorController extends Controller
 {
@@ -14,7 +17,8 @@ class ProcessorController extends Controller
      */
     public function index()
     {
-        //
+        $processors = Processor::all();
+        return view('processor.index',compact('processors'));
     }
 
     /**
@@ -24,7 +28,7 @@ class ProcessorController extends Controller
      */
     public function create()
     {
-        //
+        return view('processor.create');
     }
 
     /**
@@ -33,9 +37,18 @@ class ProcessorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PorcessorStoreRequest $request)
     {
-        //
+        try{
+            Processor::create([
+                'name'=>$request->name
+            ]);
+            return redirect()->route('processor.index')->with('success','Processor Create Successful');
+        }
+        catch(\Exception $e){
+            return $e->getMessage();
+            return redirect()->back()->with('error','Something went wrong');
+        }
     }
 
     /**
@@ -46,7 +59,7 @@ class ProcessorController extends Controller
      */
     public function show(processor $processor)
     {
-        //
+        return view('processor.show',compact('processor'));
     }
 
     /**
@@ -57,7 +70,7 @@ class ProcessorController extends Controller
      */
     public function edit(processor $processor)
     {
-        //
+        return view('processor.edit',compact('processor'));
     }
 
     /**
@@ -69,7 +82,13 @@ class ProcessorController extends Controller
      */
     public function update(Request $request, processor $processor)
     {
-        //
+        try{
+            $processor->update($request->all());
+            return redirect()->route('processor.index')->with('success','processor Update Successful');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('error','Something went wrong');
+        }
     }
 
     /**
@@ -80,6 +99,12 @@ class ProcessorController extends Controller
      */
     public function destroy(processor $processor)
     {
-        //
+        try{
+            $processor->delete();
+            return redirect()->route('processor.index')->with('success','Processor Delete Successful');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('error','Something went wrong');
+        }
     }
 }
