@@ -8,9 +8,11 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\OperationSystemController;
 use App\Http\Controllers\ProcessorController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\SubCategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Whoops\Run;
 
 Route::group(['middleware' => ['auth']],function(){
     Route::redirect('/','/product');
@@ -21,6 +23,7 @@ Route::group(['middleware' => ['auth']],function(){
     Route::resource('/os',OperationSystemController::class);
     Route::resource('processor', ProcessorController::class);
     Route::resource('color', ColorController::class);
+    Route::resource('/phone',PhoneController::class);
 });
 
 Auth::routes();

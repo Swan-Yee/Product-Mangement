@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('model_name');
             $table->string('model_number');
             $table->string('description');
-            $table->string('image');
-            $table->foreignId('os_id')->references('id')->on('operation_systems')->nullable()->constrained();
+            $table->foreignId('operation_system_id')->nullable()->constrained();
             $table->foreignId('processor_id')->nullable()->constrained();
+            $table->foreignId('color_id')->nullable()->constrained();
             $table->foreignId('brand_id')->nullable()->constrained();
             $table->timestamps();
         });

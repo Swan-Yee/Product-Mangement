@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\phone;
+use App\Http\Requests\Phone\PhoneStoreRequest;
+use App\Http\Requests\Phone\PhoneUpdateRequest;
+use App\Models\Brand;
+use App\Models\Color;
+use App\Models\Operation_System;
+use App\Models\Phone;
+use App\Models\Processor;
 use Illuminate\Http\Request;
 
 class PhoneController extends Controller
@@ -14,7 +20,8 @@ class PhoneController extends Controller
      */
     public function index()
     {
-        //
+        $phones = Phone::with('brand')->with('processor')->with('color')->with('operation_system')->get();
+        return view('phone.index',compact('phones'));
     }
 
     /**
@@ -24,7 +31,11 @@ class PhoneController extends Controller
      */
     public function create()
     {
-        //
+        $brands = Brand::all();
+        $colors = Color::all();
+        $processors = Processor::all();
+        $operation_systems = Operation_System::all();
+        return view('phone.create',compact('brands','colors','processors','operation_systems'));
     }
 
     /**
@@ -33,9 +44,18 @@ class PhoneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PhoneStoreRequest $request)
     {
-        //
+        try{
+            $phone = new phone();
+            $phone = $phone->create($request->all());
+
+            return redirect()->route('phone.index')->with('success','Phone Create Successful');
+        }
+        catch(\Exception $e){
+            return $e->getMessage();
+            return redirect()->back()->with('error','Something went wrong');
+        }
     }
 
     /**
@@ -46,7 +66,7 @@ class PhoneController extends Controller
      */
     public function show(phone $phone)
     {
-        //
+        return view('phone.show',compact('phone'));
     }
 
     /**
@@ -57,7 +77,11 @@ class PhoneController extends Controller
      */
     public function edit(phone $phone)
     {
-        //
+        $brands = Brand::all();
+        $colors = Color::all();
+        $processors = Processor::all();
+        $operation_systems = Operation_System::all();
+        return view('phone.edit',compact('phone','brands','colors','processors','operation_systems'));
     }
 
     /**
@@ -67,9 +91,15 @@ class PhoneController extends Controller
      * @param  \App\Models\phone  $phone
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, phone $phone)
+    public function update(PhoneUpdateRequest $request, phone $phone)
     {
-        //
+        try{
+            $phone->update($request->all());
+            return redirect()->route('phone.index')->with('success','phone Update Successful');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('error','Something went wrong');
+        }
     }
 
     /**
@@ -80,6 +110,12 @@ class PhoneController extends Controller
      */
     public function destroy(phone $phone)
     {
-        //
+        try{
+            $phone->delete();
+            return redirect()->route('phone.index')->with('success','phone Delete Successful');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('error','Something went wrong');
+        }
     }
 }

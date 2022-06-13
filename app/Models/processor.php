@@ -11,4 +11,12 @@ class Processor extends Model
     protected $fillable=[
         'name',
     ];
+
+    /**
+     * Get the proceesor for the Phone.
+     */
+    public function phones()
+    {
+        return $this->hasMany(Phone::class);
+    }
 }

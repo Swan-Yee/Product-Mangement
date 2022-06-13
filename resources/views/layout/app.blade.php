@@ -104,6 +104,11 @@
                                 </a>
                             </li>
                             <li class="list-group-item">
+                                <a href="{{route('phone.index')}}">
+                                    Phone
+                                </a>
+                            </li>
+                            <li class="list-group-item">
                                 <a href="{{route('product.index')}}">
                                     Product
                                 </a>

@@ -12,4 +12,13 @@ class Brand extends Model
     protected $fillable=[
         'name',
     ];
+
+
+    /**
+     * Get the OS for the Phone.
+     */
+    public function phones()
+    {
+        return $this->hasMany(Phone::class);
+    }
 }
