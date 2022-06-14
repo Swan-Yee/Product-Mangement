@@ -29,7 +29,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Description</label>
-            <textarea name="description" class="form-control" ></textarea>
+            <textarea name="description" class="form-control" id="summernote"></textarea>
         </div>
         <div class="mb-3">
             <label class="form-label">Operation System</label>
@@ -71,4 +71,11 @@
     </form>
     </div>
 </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+    </script>
 @endsection

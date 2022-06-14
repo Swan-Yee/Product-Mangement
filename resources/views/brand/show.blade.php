@@ -10,7 +10,7 @@
     <div class="card-body">
         <div class="mb-3">
             <label class="form-label fw-bold">Brand Name</label>
-            <p>{{ $brand->brand_type }}</p>
+            <p>{{ $brand->name }}</p>
         </div>
     </div>
 </div>

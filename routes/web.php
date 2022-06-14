@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OperationSystemController;
 use App\Http\Controllers\ProcessorController;
 use App\Http\Controllers\ProductController;
@@ -12,10 +13,11 @@ use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\SubCategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Whoops\Run;
+
+Route::redirect('/','/home');
 
 Route::group(['middleware' => ['auth']],function(){
-    Route::redirect('/','/product');
+    // Route::redirect('/','/product');
     Route::resource('/product', ProductController::class);
     Route::resource('/category',CategoryController::class);
     Route::resource('/sub-category',SubCategoryController::class);
@@ -40,3 +42,7 @@ Route::prefix('google')->name('google.')->group( function(){
     Route::get('login', [GoogleController::class, 'loginUsingGoogle'])->name('login');
     Route::get('callback', [GoogleController::class, 'callbackFromGoogle'])->name('callback');
 });
+
+Route::get('/', [CustomerController::class,'index'])->name('customer.index');
+Route::get('/see-more/{id}', [CustomerController::class,'seeMore'])->name('customer.see.more');
+

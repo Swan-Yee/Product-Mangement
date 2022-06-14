@@ -23,18 +23,18 @@
             </tr>
         </thead>
         <tbody>
-                @if(session('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('success') }}
-                    </div>
-                @endif
+            @if(session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
             @if($phones->count() > 0)
                 @foreach ($phones as $phone)
                 <tr>
-                    <th scope="row">{{ $phone->id }}</th>
+                    <td scope="row">{{ $phone->id }}</td>
                     <td>{{ $phone->model_name }}</td>
                     <td>{{ $phone->model_number }}</td>
-                    <td>{{ $phone->description }}</td>
+                    <td id="summernote">{!! $phone->description !!}</td>
                     <td>{{ $phone->brand->name }}</td>
                     <td>{{ $phone->processor->name }}</td>
                     <td>{{ $phone->color->name }}</td>
@@ -46,7 +46,7 @@
                         class="d-inline" id="delete{{$phone->id}}">
                         @csrf
                         @method('delete')
-                            <a href="#" class="btn btn-sm btn-danger" onclick="confirm('Delete?') ? document.getElementById('delete{{$phone->id}}').submit():false;">Delete</a>
+                            <a href="#" class="btn btn-sm btn-danger" onclick="confirm('Are U sure to Delete phone -> {{ $phone->model_name }}') ? document.getElementById('delete{{$phone->id}}').submit():false;">Delete</a>
                         </form>
                     </td>
                 </tr>
@@ -60,4 +60,11 @@
         </table>
     </div>
 </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script>
+        // $(document).ready(function() {
+        //     $('#summernote').summernote();
+        // });
+    </script>
 @endsection
